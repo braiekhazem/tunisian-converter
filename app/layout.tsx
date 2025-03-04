@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/language-context";
+import { HistoryProvider } from "@/contexts/history-context";
 
 export const metadata: Metadata = {
   title: "Tunisian Arabic Converter",
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          <HistoryProvider>{children}</HistoryProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

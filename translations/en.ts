@@ -27,4 +27,10 @@ export const en = {
   errors: {
     generic: "An error occurred during conversion. Please try again.",
   },
+  history: {
+    title: "Recent Conversions",
+    empty: "No conversion history yet",
+    clearAll: "Clear all history",
+    deleteEntry: "Delete entry",
+  },
 };

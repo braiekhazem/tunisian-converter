@@ -12,6 +12,8 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { useLanguage } from "@/contexts/language-context";
+import { useHistory } from "@/contexts/history-context";
+import { HistoryPanel } from "@/components/history-panel";
 
 export function Converter() {
   const { t, language } = useLanguage();
@@ -20,6 +22,7 @@ export function Converter() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [toFusha, setToFusha] = useState(true);
+  const { addEntry } = useHistory();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,6 +36,11 @@ export function Converter() {
     try {
       const result = await convertToArabic(input, toFusha);
       setOutput(result);
+      addEntry({
+        input,
+        output: result,
+        type: toFusha ? "fusha" : "tunisian",
+      });
     } catch (err) {
       setError(t.errors.generic);
     } finally {
@@ -132,6 +140,7 @@ export function Converter() {
             </ul>
           </div>
         </form>
+        <HistoryPanel />
       </CardContent>
     </Card>
   );
