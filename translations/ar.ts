@@ -33,4 +33,9 @@ export const ar = {
     clearAll: "مسح كل السجل",
     deleteEntry: "حذف التحويل",
   },
+  footer: {
+    support: "ادعم المشروع",
+    madeWith: "صنع بـ",
+    by: "بواسطة",
+  },
 };

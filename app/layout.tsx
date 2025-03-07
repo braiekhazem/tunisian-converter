@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/language-context";
 import { HistoryProvider } from "@/contexts/history-context";
+import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Tunisian Arabic Converter",
@@ -17,7 +18,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <LanguageProvider>
-          <HistoryProvider>{children}</HistoryProvider>
+          <HistoryProvider>
+            <div className="min-h-screen flex flex-col">
+              <main className="flex-1">{children}</main>
+            </div>
+          </HistoryProvider>
         </LanguageProvider>
       </body>
     </html>

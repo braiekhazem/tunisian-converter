@@ -1,6 +1,7 @@
 "use client";
 
 import { Converter } from "@/components/converter";
+import { Footer } from "@/components/footer";
 import { LanguageSwitch } from "@/components/language-switch";
 import { useLanguage } from "@/contexts/language-context";
 
@@ -25,6 +26,8 @@ export default function Home() {
         </h1>
         <p className="text-center text-slate-600 mb-6">{t.description}</p>
         <Converter />
+
+        <Footer />
       </div>
     </main>
   );

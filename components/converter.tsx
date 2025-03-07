@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { useLanguage } from "@/contexts/language-context";
 import { useHistory } from "@/contexts/history-context";
 import { HistoryPanel } from "@/components/history-panel";
+import { Footer } from "./footer";
 
 export function Converter() {
   const { t, language } = useLanguage();

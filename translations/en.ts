@@ -33,4 +33,9 @@ export const en = {
     clearAll: "Clear all history",
     deleteEntry: "Delete entry",
   },
+  footer: {
+    support: "Support Project",
+    madeWith: "Made by",
+    by: "by",
+  },
 };
