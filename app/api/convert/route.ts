@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { generateText } from "ai";
 import { anthropic } from "@ai-sdk/anthropic";
+import { getClientIp } from "@/lib/get-client-ip";
+import { UsageTracker } from "@/lib/usage-tracker";
 
 const fushaPrompt = (
   text: string
@@ -48,8 +50,17 @@ const latinaPrompt = (
 
 export async function POST(request: Request) {
   try {
-    const { latinText, toFusha } = await request.json();
-    console.log("Received request:", { latinText, toFusha });
+    const { latinText, toFusha, clientIp } = await request.json();
+    console.log("Received request:", { latinText, toFusha, clientIp });
+
+    // Check cache first
+    const cachedResult = UsageTracker.getCachedResult(
+      latinText,
+      toFusha ? "fusha" : "tunisian"
+    );
+    if (cachedResult) {
+      return NextResponse.json({ arabicText: cachedResult });
+    }
 
     if (!process.env.ANTHROPIC_API_KEY) {
       console.error("ANTHROPIC_API_KEY is not set");
@@ -68,7 +79,21 @@ export async function POST(request: Request) {
       maxTokens: 1000,
     });
 
-    return NextResponse.json({ arabicText: text.trim() });
+    const result = text.trim();
+
+    // Cache the result
+    UsageTracker.cacheResult(latinText, result, toFusha ? "fusha" : "tunisian");
+
+    // Track usage
+    UsageTracker.trackUsage({
+      timestamp: Date.now(),
+      ip: clientIp || "unknown",
+      input: latinText,
+      output: result,
+      type: toFusha ? "fusha" : "tunisian",
+    });
+
+    return NextResponse.json({ arabicText: result });
   } catch (error) {
     console.error("Error in API route:", error);
     return NextResponse.json(
