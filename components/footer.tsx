@@ -37,17 +37,6 @@ export function Footer() {
             </a>
           </Button>
         </div>
-        <p className="text-sm text-slate-500 text-center">
-          {t.footer.madeWith}{" "}
-          <a
-            href="https://github.com/braiekhazem"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium hover:underline"
-          >
-            Hazem Braiek
-          </a>
-        </p>
       </div>
     </footer>
   );
